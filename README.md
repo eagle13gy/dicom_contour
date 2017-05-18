@@ -9,7 +9,7 @@ Code Structure
 unit test to read one dicom/contour file to verify if the read functions are working
 plot the dicom and corresponding contour after successful read to check if the ROI is reasonable:
 
-![alt text](https://github.com/eagle13gy/dicom_contour/single_res.png)
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/single_res.png)
 
 
 ### Functions: 
