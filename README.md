@@ -1,4 +1,4 @@
-Pipeline to read paired Dicoms and Contours
+Pipeline to read paired dicoms and contours
 ============================================================
 Yi Guo
 
@@ -7,7 +7,7 @@ Part 1
 --------------
 ### read_single.py: 
 Unit test to read one dicom/contour file to verify if the read functions are working properly.
-Plot the dicom and corresponding contour after successful read to check if the ROI is reasonable:
+Plot the dicom and the corresponding contour after successful read to check if the ROI is reasonable:
 
 ![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/single_res.png)
 
