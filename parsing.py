@@ -55,7 +55,7 @@ def parse_dicom_file(filename):
         return None
 
 
-def poly_to_mask(polygon, height, width):
+def poly_to_mask(polygon, height, width): #swap the height, width location
     """Convert polygon to mask
 
     :param polygon: list of pairs of x, y coords [(x1, y1), (x2, y2), ...]

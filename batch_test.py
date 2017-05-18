@@ -51,14 +51,13 @@ class DataSet(object):
             end = self._index_in_epoch
             return self._images[start:end], self._labels[start:end]
 
-
 # test a few batches by visualizing the images and corresponding contours
 d1=DataSet('final_data')
 for i in range(20):
     a,b=d1.next_batch(9)
 #    a,b=d1.next_batch(9,False)
     plt.figure(figsize=(20,10))
-    visulize_dicom_contour(a,b,2,4)
+    visualize_dicom_contour(a,b,2,4)
 
 plt.show()
 

@@ -50,8 +50,8 @@ def parsing_data(filedir):
     return dres, mres
 
 
-def visulize_dicom_contour(dicoms,contours,Nrow,Ncol):
-    '''Tool to visulize the first Nrow*Ncol dicom and corresponding contours in a subplot
+def visualize_dicom_contour(dicoms,contours,Nrow,Ncol):
+    '''Tool to visualize the first Nrow*Ncol dicom and corresponding contours in a subplot
     :param dicoms: numpy array of dicoms
     :param contour: numpy array of contour boolean masks
     :param Nrow: desired subplot rows
@@ -62,7 +62,7 @@ def visulize_dicom_contour(dicoms,contours,Nrow,Ncol):
         plt.imshow(np.concatenate((dicoms[i,:,:],dicoms[i,:,:]+contours[i,:,:]*200),axis=1),cmap=plt.gray(),vmin=0, vmax=300)
         plt.axis('off')
 
-# unit test to visulize the loaded dicom, and dicom + contour
+# unit test to visualize the loaded dicom, and dicom + contour
 #dres, mres=parsing_data('final_data')
-#visulize_dicom_contour(dres,mres,2,3)
+#visualize_dicom_contour(dres,mres,2,3)
 #plt.show()
