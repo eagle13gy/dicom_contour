@@ -28,15 +28,15 @@ A small utility to visualize first few paired dicoms and contours using subplots
 I plotted the dicom images and overlaped the contour onto the images, and showed them side by side to check if the read function works correctly and the contours are reasonable.
 
 #### What changes did you make to the code, if any, in order to integrate it into our production code base? 
-Although all the images given are of the same width and heighth (256*256), 
+Although all the images given are of the same width and height (256*256), 
 the function poly_to_mask(polygon, width, height) has width comes before height, which seems inconsistent with the numpy.shape. 
-I've changed this module to have height comes before width. 
+I've changed this module to have height come before width. 
 
 Part 2
 --------------
 ### batch_test.py: 
 Define a class (Dataset) which has a method next_batch(batch_size, shuffle), with shuffle default to be true. 
-This module is adapted from the mnist data processing in tensorflow toolbox. 
+This module is adapted from the mnist data processing part in tensorflow toolbox. 
 This next_batch method will return a single batch with random samples over the entire data set, and will cycle over the entire data set during one epoch.
 
 To test it, plot a few batches of images and contours using the visualize_dicom_contour function. 
@@ -45,7 +45,7 @@ Showing here is one batch of random samples.
 ![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/batch_res.png)
 
 ### cnn_train_keras.py:
-Train on a pseudo CNN with output size same as input size. 
+Train on a dummy CNN (one conv, one deconv layer) with output size same as input size. 
 Use parsing_data to load the dicoms and contours here, random shuffle can be enabled by Keras model.fit
 
 
@@ -56,7 +56,7 @@ Originally I have the third dimension to stack the data, I changed this dimensio
 
 #### How do you/did you verify that the pipeline was working correctly?
 
-I visualize a few batches to see if they're randomly selected, and cover the whole data set. 
+I visualize a few batches to see if they're randomly selected, and covered the whole data set. 
 During the debugging period, I also output some class variables (e.g. start, end, _epochs_completed, _index_in_epoch) to check how the indices are chosen for a few epoches. 
 
 #### Given the pipeline you have built, can you see any deficiencies that you would change if you had more time? If not, can you think of any improvements/enhancements to the pipeline that you could build in?
@@ -64,7 +64,7 @@ During the debugging period, I also output some class variables (e.g. start, end
 1. One thing is how to handle if the total sample number is not a multiple of batch_size. I think there're multple ways to handle this. 
 The next_batch implementation just loop into the next epoch to fill the batch_size. One easy implementation is to just discard the last few samples that couldn't fill a whole batch.
 2. There're also multiple ways to implement this pipeline. I also showed that in Keras, model.fit function can easily shuffle the samples by setting a flag. 
-Another easy way to implement this is to come up with an array of random shuffled indices of (1:num_sample) for each epoch, 
+Another easy way to implement this is to come up with an array of randomly shuffled indices of (1:num_sample) for each epoch, 
 and sequentially take batch_size of the indices to sample the numpy arrays of dicoms and contours. This can be implemented without class, in the training process.
 3. I think the way I stacked the numpy arrays may not be safe, a better way should be to use the list, starting with an empty list. 
 However, this requires converting the list into numpy arrays in the later implementaions.
