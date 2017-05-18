@@ -1,21 +1,17 @@
 # dicom_contour
 Pipeline to read paired dicom and contours
-Matlab scripts for Direct Reconstruction in DCE-MRI
 ============================================================
-
-(c) *Yi Guo*, *Sajan Goud Lingala*, *Krishna Nayak*, Jul 2016.
-
-[Magnetic Resonance Engineering Laboratory](https://mrel.usc.edu)
-
-**University of Southern California**
 
 Code Structure
 --------------
 ### Demo scripts
-**Kt_Vp_SEN_AD_3d.m**
-Reconstruction script to demonstrate direct reconstruction from under-sampled k-space in retrospective studies.  
-Please download data set at https://drive.google.com/file/d/0B4nLrDuviSiWajFDV1Frc3cxR0k/view?usp=sharing for DCE50_0402.mat and
-https://drive.google.com/file/d/0B4nLrDuviSiWcGFPOUV1b2VrZUU/view?usp=sharing for T1_0402.mat
+**read_single.py**
+unit test to read one dicom/contour file to verify if the read functions are working
+plot the dicom and corresponding contour after successful read to check if the ROI is reasonable:
+
+![alt text](https://github.com/eagle13gy/dicom_contour.git/master/single_res.png)
+
+
 
 ### Functions: 
 **conc2Ktrans.m**: 
