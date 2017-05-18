@@ -1,4 +1,4 @@
-Pipeline to read paired Dicom and Contours
+Pipeline to read paired Dicoms and Contours
 ============================================================
 Yi Guo
 
@@ -48,15 +48,18 @@ Showing here is one batch of random samples.
 Train on a pseudo CNN with output size same as input size. 
 Use parsing_data to load the dicom and boolen mask here, random shuffle can be enabled by Keras model.fit
 
-**visulize_dicom_contour(dicoms,contours,Nrow,Ncol)** : 
-A small utility to visulize first few paired dicoms and contours using subplots
-
 
 ### Questions:
-#### How did you verify that you are parsing the contours correctly?
-I plotted the dicom images and overlaped the contour onto the images, and showed them side by side to check if the read function works correctly and the contours are reasonable.
+#### Did you change anything from the pipelines built in Parts 1 to better streamline the pipeline built in Part 2? If so, what? If not, is there anything that you can imagine changing in the future?
 
-#### What changes did you make to the code, if any, in order to integrate it into our production code base? 
+I have
 
+####How do you/did you verify that the pipeline was working correctly?
+
+I verify
+
+####Given the pipeline you have built, can you see any deficiencies that you would change if you had more time? If not, can you think of any improvements/enhancements to the pipeline that you could build in?
+
+I verify
 
 

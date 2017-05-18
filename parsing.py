@@ -55,18 +55,18 @@ def parse_dicom_file(filename):
         return None
 
 
-def poly_to_mask(polygon, width, height):
+def poly_to_mask(polygon, height, width):
     """Convert polygon to mask
 
     :param polygon: list of pairs of x, y coords [(x1, y1), (x2, y2), ...]
      in units of pixels
-    :param width: scalar image width
     :param height: scalar image height
+    :param width: scalar image width
     :return: Boolean mask of shape (height, width)
     """
 
     # http://stackoverflow.com/a/3732128/1410871
-    img = Image.new(mode='L', size=(width, height), color=0)
+    img = Image.new(mode='L', size=(height, width), color=0)
     ImageDraw.Draw(img).polygon(xy=polygon, outline=0, fill=1)
     mask = np.array(img).astype(bool)
     return mask

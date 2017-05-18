@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 def parsing_data(filedir):
     """Parse the given DICOM files and contour files using the linked CVS
     :param filedir: directory to the DICOM, contour, and CVS files
-    :return: 2 numpy arrays, 1 containing all the dicoms, and the other containing all the contour masks
+    :return: 2 numpy arrays, the first containing all the dicoms, and the second containing all the contour masks
     """
     ddir=filedir+'/dicoms/'
     cdir=filedir+'/contourfiles/'
@@ -41,7 +41,7 @@ def parsing_data(filedir):
                         else:
                             dres=np.concatenate((dres,dp1),axis=0)
 
-                        m1 = poly_to_mask(c1, dw, dh) # convert contour polygon into boolean mask
+                        m1 = poly_to_mask(c1, dh, dw) # convert contour polygon into boolean mask
                         m1 = np.reshape(m1, [1,dh,dw])
                         if 'mres' not in locals():
                             mres=m1
