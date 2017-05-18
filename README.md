@@ -4,12 +4,22 @@ Pipeline to read paired dicom and contours
 
 Code Structure
 --------------
-### Demo scripts
-**read_single.py**
+### Part 1
+**read_single.py**: 
 unit test to read one dicom/contour file to verify if the read functions are working
 plot the dicom and corresponding contour after successful read to check if the ROI is reasonable:
 
 ![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/single_res.png)
+
+**link_data.py**:
+*parsing_data(filedir)*:Parse the given DICOM files and contour files using the linked CVS
+return 2 numpy arrays, 1 containing all the dicoms, and the other containing all the contour masks
+
+*visulize_dicom_contour(dicoms,contours,Nrow,Ncol)* : a small utility to visulize first few paired dicom and contour using subplots
+
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/multi_res.png)
+
+
 
 
 ### Functions: 
