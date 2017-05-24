@@ -1,5 +1,5 @@
 '''
-Train on a pseudo CNN with output size same as input size
+Train on a dummy CNN with output size same as input size
 Use parsing_data to load the dicom and boolen mask here
 random shuffle is enabled by Keras model.fit
 '''
