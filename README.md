@@ -55,31 +55,13 @@ Also the total number of wrongly segmented points, and the percentage of these p
 |1.0   | 46058  | 0.743338|
 
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+### Questions: 
+#### Do you think that any other heuristic (non-machine learning)-based approaches, besides simple thresholding, would work in this case? Explain.n?
 
+1. Many classic methods should work. One method is region growing, where the seed can be chosen based on the center of the outer contour. The region can grow to neighbouring points based on the similarity between the seed and the neighbouring points (difference in intensity). Some threshold can control the tolerance for the difference, and the growing region can be bounded by the outer contour.
+I couldn't find a good open source region grow method for python. I tried one data set using Matlab, below is the result:
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/region_grow.png)
 
-### Questions:
-#### Did you change anything from the pipelines built in Parts 1 to better streamline the pipeline built in Part 2? If so, what? If not, is there anything that you can imagine changing in the future?
-
-Originally I have the third dimension to stack the data, I changed this dimension to the first one to easily extract a batch of data, and also to be consistent with most DL toolbox.
-
-#### How do you/did you verify that the pipeline was working correctly?
-
-I visualize a few batches to see if they're randomly selected, and covered the whole data set. 
-During the debugging period, I also output some class variables (e.g. start, end, _epochs_completed, _index_in_epoch) to check how the indices are chosen for a few epoches. 
-
-#### Given the pipeline you have built, can you see any deficiencies that you would change if you had more time? If not, can you think of any improvements/enhancements to the pipeline that you could build in?
-
-1. One thing is how to handle if the total sample number is not a multiple of batch_size. I think there're multple ways to handle this. 
-The next_batch implementation just loop into the next epoch to fill the batch_size. One easy implementation is to just discard the last few samples that couldn't fill a whole batch.
-2. There're also multiple ways to implement this pipeline. I also showed that in Keras, model.fit function can easily shuffle the samples by setting a flag. 
-Another easy way to implement this is to come up with an array of randomly shuffled indices of (1:num_sample) for each epoch, 
-and sequentially take batch_size of the indices to sample the numpy arrays of dicoms and contours. This can be implemented without class, in the training process.
-3. I think the way I stacked the numpy arrays may not be safe, a better way should be to use the list, starting with an empty list. 
-However, this requires converting the list into numpy arrays in the later implementaions.
+2. Also methods based on the gradient (boundary) of the images should work well, since there's some clear boundary between the blood pool and myocardium. Watershed method, which resembles region grow, but utilize the boundary information, should work well in this case.
 
 
