@@ -6,47 +6,52 @@ Yi Guo
 Part 1: Parse the o-contours
 --------------
 ### utilities.py: 
-Unit test to read one dicom/contour file to verify if the read functions are working properly.
-Plot the dicom and the corresponding contour after successful read to check if the ROI is reasonable:
+Organized data read and image visualization functions in this file. 
+**parsing_data_io(filedir)**:
+Based on previous version, parse the given DICOM files and inner/outer contour files using the linked CVS.
+Return 3 numpy arrays, the first containing all the dicoms, the second containing all inner contour masks, the third containing all outer contour masks. The first dimension is used to concantenate the images/masks. 
+Only return the images/contours that have both inner and outer contours.
 
-![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/single_res.png)
+**visualize_dicom_contour_io(dicoms, contours1, contours2, Nrow, Ncol)**:
+Based on previous version, visualize the three images: original, and 2 contour overlaped images for easy comparison. 
 
-### link_data.py:
-**parsing_data(filedir)**:
-Parse the given DICOM files and contour files using the linked CVS.
-Return 2 numpy arrays, 1 containing all the dicoms, and the other containing all the contour masks. 
-The first dimension is used to concantenate the images/masks.
+Using the above functions to visualize the correct parsing of both inner and outer contours for a few images:
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Outer_Contour.png)
 
-
-**visualize_dicom_contour(dicoms,contours,Nrow,Ncol)** : 
-A small utility to visualize first few paired dicoms and contours using subplots
-
-![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/multi_res.png)
 
 ### Questions:
-#### How did you verify that you are parsing the contours correctly?
-I plotted the dicom images and overlaped the contour onto the images, and showed them side by side to check if the read function works correctly and the contours are reasonable.
+#### Discuss any changes that you made to the pipeline you built in Phase 1, and why you made those changes?
+The new version now reads outer contour first, then search for the existance of corresponding inner contour and image. I added an "if" statement to first check the existance of those files, instead of checking the return of the parse_dicom_file function is "NONE" or not. This should be a safer and faster way to load the data. Moreover, the function reads the image and the contours only after all three element of a data set exist. 
 
-#### What changes did you make to the code, if any, in order to integrate it into our production code base? 
-Although all the images given are of the same width and height (256*256), 
-the function poly_to_mask(polygon, width, height) has width comes before height, which seems inconsistent with the numpy.shape. 
-I've changed this module to have height come before width. 
 
-Part 2
+Part 2: Heuristic LV Segmentation approaches
 --------------
-### batch_test.py: 
-Define a class (Dataset) which has a method next_batch(batch_size, shuffle), with shuffle default to be true. 
-This module is adapted from the mnist data processing part in tensorflow toolbox. 
-This next_batch method will return a single batch with random samples over the entire data set, and will cycle over the entire data set during one epoch.
+### segmentation_thres(image, contourO, thres=1) (in utilities.py): 
+Test a simple thresholding scheme to segment the inner contour given the outer contour. The mean image intensity inside the outer contour is calculated first. Then based on the intensity, the blood pool should have higher value, while the myocardium should have lower value. The segmentation is then based on the mean value times some percentage threshold (default to be 1) to control the performance. A simple test is done on one image first, and visualize with comparision to manual segemented result (in read_single.py):
 
-To test it, plot a few batches of images and contours using the visualize_dicom_contour function. 
-Showing here is one batch of random samples. 
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Outer_Contour.png)
 
-![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/batch_res.png)
+In this one data set, the performance is rather good. 
 
-### cnn_train_keras.py:
-Train on a dummy CNN (one conv, one deconv layer) with output size same as input size. 
-Use parsing_data to load the dicoms and contours here, random shuffle can be enabled by Keras model.fit
+### statistical_analysis.py:
+Use the above method to segment the entire data set, visualize a few data set with comparision to manual segmentation, and show some results with different threshold selections:
+
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Thres1.0.png)
+
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Thres0.7.png)
+
+The simple thresholding method performs well for certain cases, but not so well for a few cases with blurred boundaries. The threshold can affect the performance, but this parameter needs manual tuning. 
+
+Also the total number of wrongly segmented points, and the percentage of these points w.r.t manual inner contours were calcualted to statistically evaluate the performance of this method. Below is some results for a range of threshold values:
+
+Thres   Total   Percentage
+0.4:    30026   0.484595
+0.5:    20855   0.336582
+0.6:    17984   0.290247
+0.7:    17891   0.288746
+0.8:    20316   0.327883
+0.9:    28763   0.464211
+1.0:    46058   0.743338
 
 
 ### Questions:
