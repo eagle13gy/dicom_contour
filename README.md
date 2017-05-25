@@ -29,7 +29,7 @@ Part 2: Heuristic LV Segmentation approaches
 ### segmentation_thres(image, contourO, thres=1) (in utilities.py): 
 Test a simple thresholding scheme to segment the inner contour given the outer contour. The mean image intensity inside the outer contour is calculated first. Then based on the intensity, the blood pool should have higher value, while the myocardium should have lower value. The segmentation is then based on the mean value times some percentage threshold (default to be 1) to control the performance. A simple test is done on one image first, and visualize with comparision to manual segemented result (in read_single.py):
 
-![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/thresholding_single.png)
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Single_Thres.png)
 
 In this one data set, the performance is rather good. 
 
