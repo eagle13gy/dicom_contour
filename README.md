@@ -7,6 +7,7 @@ Part 1: Parse the o-contours
 --------------
 ### utilities.py: 
 Organized data read and image visualization functions in this file. 
+----
 **parsing_data_io(filedir)**:
 Based on previous version, parse the given DICOM files and inner/outer contour files using the linked CVS.
 Return 3 numpy arrays, the first containing all the dicoms, the second containing all inner contour masks, the third containing all outer contour masks. The first dimension is used to concantenate the images/masks. 
