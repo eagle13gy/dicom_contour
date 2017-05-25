@@ -8,7 +8,7 @@ from __future__ import print_function
 
 from keras.models import Model
 from keras.layers import Input, Conv2D, Conv2DTranspose
-from link_data import *
+from utilities import *
 
 epochs = 20
 

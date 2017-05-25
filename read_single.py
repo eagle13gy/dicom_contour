@@ -1,5 +1,6 @@
 from parsing import *
 import matplotlib.pyplot as plt
+from utilities import segmentation_thres
 
 # unit test to read one dicom/contour file to verify if the read functions are working
 # plot the dicom/contour after successful read
@@ -19,28 +20,6 @@ mI1=poly_to_mask(cI1,dw,dh)
 
 cO1=parse_contour_file(contourOdir)
 mO1=poly_to_mask(cO1,dw,dh)
-
-def segmentation_thres(image, contourO,thres=1):
-    '''Tool to segment the inner contour given the outer contour
-    :param image: numpy array of one image
-    :param contourO: numpy array of contour boolean masks
-    :param thres:  percentage threshold to control the performance, default is 1
-    :return segmented inner contour mask
-    '''
-
-    # get the mean pixel value inside the outer contour region
-    regionO=image[contourO]
-    meanR=sum(regionO)/len(regionO)
-    meanR=meanR*thres # thres variable control the threshold value w.r.t to mean value
-
-    # mask out the myocardium part based on the threshold value
-    contourI=contourO
-    for index, c in np.ndenumerate(contourI):
-        if(c==True):
-            if(image[index]<meanR):
-                contourI[index]=False
-
-    return contourI
 
 
 rI1=segmentation_thres(dp1,mO1,0.9)

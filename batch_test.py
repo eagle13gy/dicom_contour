@@ -1,4 +1,4 @@
-from link_data import *
+from utilities import *
 
 """A DataSet class with next_Batch method
 Initialize with the file directory as parameter

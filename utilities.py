@@ -122,7 +122,7 @@ def visualize_dicom_contour(dicoms,contours,Nrow,Ncol):
         plt.imshow(np.concatenate((dicoms[i,:,:],dicoms[i,:,:]+contours[i,:,:]*300),axis=1),cmap=plt.gray(),vmin=0, vmax=300)
         plt.axis('off')
 
-def visualize_dicom_contour_io(dicoms, contoursI, contoursO, Nrow, Ncol):
+def visualize_dicom_contour_io(dicoms, contours1, contours2, Nrow, Ncol):
     '''Tool to visualize the first Nrow*Ncol dicom and corresponding contours in a subplot
     :param dicoms: numpy array of dicoms
     :param contour: numpy array of contour boolean masks
@@ -131,12 +131,35 @@ def visualize_dicom_contour_io(dicoms, contoursI, contoursO, Nrow, Ncol):
     '''
     for i in range(Nrow * Ncol):
         plt.subplot(Nrow, Ncol, i + 1)
-        plt.imshow(np.concatenate((dicoms[i, :, :], dicoms[i, :, :] + contoursO[i, :, :] * 300,
-                                   dicoms[i, :, :] + contoursI[i, :, :] * 300), axis=1),
+        plt.imshow(np.concatenate((dicoms[i, :, :], dicoms[i, :, :] + contours1[i, :, :] * 300,
+                                   dicoms[i, :, :] + contours2[i, :, :] * 300), axis=1),
                                    cmap=plt.gray(), vmin=0, vmax=300)
         plt.axis('off')
 
+def segmentation_thres(image, contourO, thres=1):
+    '''Tool to segment the inner contour given the outer contour
+    :param image: numpy array of one image
+    :param contourO: numpy array of contour boolean masks
+    :param thres:  percentage threshold to control the performance, default is 1
+    :return segmented inner contour mask
+    '''
+
+    # get the mean pixel value inside the outer contour region
+    regionO = image[contourO]
+    meanR = sum(regionO) / len(regionO)
+    meanR = meanR * thres  # thres variable control the threshold value w.r.t to mean value
+
+    # mask out the myocardium part based on the threshold value
+    contourI = contourO
+    for index, c in np.ndenumerate(contourI):
+        if (c == True):
+            if (image[index] < meanR):
+                contourI[index] = False
+
+    return contourI
+
+
 # unit test to visualize the loaded dicom, and dicom + contour
 #dres, mIres, mOres=parsing_data_io('final_data')
-#visualize_dicom_contour(dres,mIres,2,3)
+#visualize_dicom_contour_io(dres,mIres,mOres,2,3)
 #plt.show()
