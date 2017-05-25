@@ -44,14 +44,14 @@ The simple thresholding method performs well for certain cases, but not so well 
 
 Also the total number of wrongly segmented points, and the percentage of these points w.r.t manual inner contours were calcualted to statistically evaluate the performance of this method. Below is some results for a range of threshold values:
 
-Thres   Total   Percentage
-0.4:    30026   0.484595
-0.5:    20855   0.336582
-0.6:    17984   0.290247
-0.7:    17891   0.288746
-0.8:    20316   0.327883
-0.9:    28763   0.464211
-1.0:    46058   0.743338
+|Thres   Total   Percentage|
+|0.4:    30026   0.484595|
+|0.5:    20855   0.336582|
+|0.6:    17984   0.290247|
+|0.7:    17891   0.288746|
+|0.8:    20316   0.327883|
+|0.9:    28763   0.464211|
+|1.0:    46058   0.743338|
 
 
 ### Questions:
