@@ -51,9 +51,11 @@ def parsing_data(filedir):
 
 
 def parsing_data_io(filedir):
-    """Parse the given DICOM files and contour files using the linked CVS
+    """Parse the given DICOM files and inner/outer contour files using the linked CVS
     :param filedir: directory to the DICOM, contour, and CVS files
-    :return: 2 numpy arrays, the first containing all the dicoms, and the second containing all the contour masks
+    :return: 3 numpy arrays, the first containing all the dicoms,
+                             the second containing all inner contour masks
+                             the third containing all outer contour masks
     """
     ddir=filedir+'/dicoms/'
     cdir=filedir+'/contourfiles/'
@@ -78,7 +80,7 @@ def parsing_data_io(filedir):
                     id=fsegments[2].lstrip('0')
                     dicomdir=ddir+row['patient_id']+'/'+id+'.dcm'
 
-                    if os.path.isfile(dicomdir) and os.path.isfile(contourIfile):
+                    if os.path.isfile(dicomdir) and os.path.isfile(contourIfile): # check if the file exists
                         d1 = parse_dicom_file(dicomdir)
                         dp1=d1['pixel_data']  #get actual numpy pixel data
                         dh, dw = dp1.shape  # get the shape to convert contour into binary mask
@@ -117,10 +119,24 @@ def visualize_dicom_contour(dicoms,contours,Nrow,Ncol):
     '''
     for i in range(Nrow*Ncol):
         plt.subplot(Nrow,Ncol,i+1)
-        plt.imshow(np.concatenate((dicoms[i,:,:],dicoms[i,:,:]+contours[i,:,:]*200),axis=1),cmap=plt.gray(),vmin=0, vmax=300)
+        plt.imshow(np.concatenate((dicoms[i,:,:],dicoms[i,:,:]+contours[i,:,:]*300),axis=1),cmap=plt.gray(),vmin=0, vmax=300)
+        plt.axis('off')
+
+def visualize_dicom_contour_io(dicoms, contoursI, contoursO, Nrow, Ncol):
+    '''Tool to visualize the first Nrow*Ncol dicom and corresponding contours in a subplot
+    :param dicoms: numpy array of dicoms
+    :param contour: numpy array of contour boolean masks
+    :param Nrow: desired subplot rows
+    :param Ncol: desired subplot columns
+    '''
+    for i in range(Nrow * Ncol):
+        plt.subplot(Nrow, Ncol, i + 1)
+        plt.imshow(np.concatenate((dicoms[i, :, :], dicoms[i, :, :] + contoursO[i, :, :] * 300,
+                                   dicoms[i, :, :] + contoursI[i, :, :] * 300), axis=1),
+                                   cmap=plt.gray(), vmin=0, vmax=300)
         plt.axis('off')
 
 # unit test to visualize the loaded dicom, and dicom + contour
-dres, mIres, mOres=parsing_data_io('final_data')
-visualize_dicom_contour(dres,mIres,2,3)
-plt.show()
+#dres, mIres, mOres=parsing_data_io('final_data')
+#visualize_dicom_contour(dres,mIres,2,3)
+#plt.show()

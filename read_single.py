@@ -1,6 +1,5 @@
 from parsing import *
 import matplotlib.pyplot as plt
-from regiongrowing import *
 
 # unit test to read one dicom/contour file to verify if the read functions are working
 # plot the dicom/contour after successful read
@@ -21,7 +20,14 @@ mI1=poly_to_mask(cI1,dw,dh)
 cO1=parse_contour_file(contourOdir)
 mO1=poly_to_mask(cO1,dw,dh)
 
-def segmentation_thres(image, contourO,thres):
+def segmentation_thres(image, contourO,thres=1):
+    '''Tool to segment the inner contour given the outer contour
+    :param image: numpy array of one image
+    :param contourO: numpy array of contour boolean masks
+    :param thres:  percentage threshold to control the performance, default is 1
+    :return segmented inner contour mask
+    '''
+
     # get the mean pixel value inside the outer contour region
     regionO=image[contourO]
     meanR=sum(regionO)/len(regionO)
@@ -36,43 +42,17 @@ def segmentation_thres(image, contourO,thres):
 
     return contourI
 
-#    return region
 
+rI1=segmentation_thres(dp1,mO1,0.9)
 
-
-def make_circle1(c1):
-    xcor = sum(coor[0] for coor in c1)/len(c1)
-    ycor = sum(coor[1] for coor in c1)/len(c1)
-
-    RR=[]
-    for coor in c1:
-        RR.append(pow(pow(coor[0]-xcor,2)+pow(coor[1]-ycor,2),0.5))
-
-    RR=sum(RR)/len(c1)
-
-    return (xcor,ycor,RR)
-
-print(make_circle1(cI1))
-
-
-#rI1=segmentation_thres(dp1,mO1,0.9)
-
-rI1=region_growing(dp1/3,(130,138),0.5)
-
-
-#m1=m1.astype('float32')
-#print(m1[100])
-#print(np.amax(dp1))
-#print(dp1[100])
-
-# plot the dicom and the dicom+contour
+# plot the thresholding inner segmented contour with comparison to manually segmented inner contour
 
 plt.figure()
 plt.subplot(1,3,1)
 plt.imshow(dp1,cmap=plt.gray(),vmin=0, vmax=300)
 plt.axis('off')
 plt.subplot(1,3,2)
-plt.imshow(rI1*300,cmap=plt.gray(),vmin=0, vmax=300)
+plt.imshow(dp1+rI1*300,cmap=plt.gray(),vmin=0, vmax=300)
 plt.axis('off')
 plt.subplot(1,3,3)
 plt.imshow(dp1+mI1*300,cmap=plt.gray(),vmin=0, vmax=300)
