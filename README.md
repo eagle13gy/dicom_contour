@@ -3,9 +3,9 @@ Pipeline to read paired dicoms and contours
 Yi Guo
 
 
-Part 1
+Part 1: Parse the o-contours
 --------------
-### read_single.py: 
+### utilities.py: 
 Unit test to read one dicom/contour file to verify if the read functions are working properly.
 Plot the dicom and the corresponding contour after successful read to check if the ROI is reasonable:
 
