@@ -36,9 +36,9 @@ In this one data set, the performance is rather good.
 ### statistical_analysis.py:
 Use the above method to segment the entire data set, visualize a few data set with comparision to manual segmentation, and show some results with different threshold selections:
 
-![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Thres1.0.png)
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Thres_1.0.png)
 
-![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Thres0.7.png)
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Thres_0.7.png)
 
 The simple thresholding method performs well for certain cases, but not so well for a few cases with blurred boundaries. The threshold can affect the performance, but this parameter needs manual tuning. 
 
