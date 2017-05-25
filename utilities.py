@@ -160,6 +160,6 @@ def segmentation_thres(image, contourO, thres=1):
 
 
 # unit test to visualize the loaded dicom, and dicom + contour
-#dres, mIres, mOres=parsing_data_io('final_data')
-#visualize_dicom_contour_io(dres,mIres,mOres,2,3)
-#plt.show()
+dres, mIres, mOres=parsing_data_io('final_data')
+visualize_dicom_contour_io(dres,mIres,mOres,3,2)
+plt.show()
