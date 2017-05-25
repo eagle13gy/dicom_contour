@@ -27,7 +27,7 @@ Part 2: Heuristic LV Segmentation approaches
 --------------
 
 ### read_single.py: 
-Plot the histogram of the LV blood pool and myocardium intensity:
+Plot the histogram of the myocardium and LV blood pool intensity:
 ![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/histogram.png)
 
 It is obviously that an thresholding method based on intensity should work to segment the blood pool, although not perfectly for some pixels.
