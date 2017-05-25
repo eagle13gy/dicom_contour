@@ -30,11 +30,16 @@ plt.figure()
 plt.subplot(1,3,1)
 plt.imshow(dp1,cmap=plt.gray(),vmin=0, vmax=300)
 plt.axis('off')
+plt.title('Original image')
 plt.subplot(1,3,2)
-plt.imshow(dp1+rI1*300,cmap=plt.gray(),vmin=0, vmax=300)
+plt.imshow(dp1+mI1*300,cmap=plt.gray(),vmin=0, vmax=300)
+plt.title('Manual segmentation')
 plt.axis('off')
 plt.subplot(1,3,3)
-plt.imshow(dp1+mI1*300,cmap=plt.gray(),vmin=0, vmax=300)
+plt.imshow(dp1+rI1*300,cmap=plt.gray(),vmin=0, vmax=300)
+plt.title('Thresholding segmentation')
 plt.axis('off')
 plt.show()
+
+
 
