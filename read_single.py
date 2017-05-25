@@ -22,6 +22,17 @@ cO1=parse_contour_file(contourOdir)
 mO1=poly_to_mask(cO1,dw,dh)
 
 
+# get pixels of blood pool and Myocardium
+dc1=dp1[mI1]
+dm1=dp1[mO1-mI1]
+
+fig, ax = plt.subplots()
+ax.hist((dc1,dm1),bins='auto',color=['red','blue'],label=['Blood Pool','Myocardium'])
+ax.legend(prop={'size': 20})
+plt.title('Histogram of LV Myocardial and Blood Pool Intensity', fontsize=20)
+plt.show()
+
+
 rI1=segmentation_thres(dp1,mO1,0.9)
 
 # plot the thresholding inner segmented contour with comparison to manually segmented inner contour

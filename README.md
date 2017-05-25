@@ -25,6 +25,13 @@ The new version now reads outer contour first, then search for the existance of 
 
 Part 2: Heuristic LV Segmentation approaches
 --------------
+
+### read_single.py: 
+Plot the histogram of the LV blood pool and myocardium intensity:
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/histogram.png)
+
+It is obviously that an thresholding method based on intensity should work to segment the blood pool, although not perfectly for some pixels.
+
 ### segmentation_thres(image, contourO, thres=1) (in utilities.py): 
 Test a simple thresholding scheme to segment the inner contour given the outer contour. The mean image intensity inside the outer contour is calculated first. Then based on the intensity, the blood pool should have higher value, while the myocardium should have lower value. The segmentation is then based on the mean value times some percentage threshold (default to be 1) to control the performance. A simple test is done on one image first, and visualized with comparision to manual segemented result (in read_single.py):
 
@@ -57,7 +64,11 @@ To quantitatively evaluate the performance, the total number of wrongly segmente
 ### Questions: 
 #### Do you think that any other heuristic (non-machine learning)-based approaches, besides simple thresholding, would work in this case? Explain?
 
-1. Many classic methods should work. One method is region growing, where the seed can be chosen based on the center of the outer contour. The region can grow into neighbouring points based on the similarity between the seed and the neighbouring points (difference in intensity). Some threshold can control the tolerance for the difference, and the growing region can be bounded by the outer contour.
+1. Many classic methods should work. One method is region growing, where the seed can be chosen based on the center of the outer contour. 
+The region can grow into neighbouring points based on the similarity between the seed and the neighbouring points (difference in intensity). 
+Some threshold can control the tolerance for the difference, and the growing region can be bounded by the outer contour.
+Based on the histogram, the region growing method can resolve some of the overlaping pixels between blood pool and myocardium, since a neighbouring condition is enforced other than pure intensity-based thresholding. 
+
 I couldn't find a good open source region grow method for python. I tried one data set using Matlab, below is the result:
 ![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/region_grow.png)
 
