@@ -29,7 +29,7 @@ dm1=dp1[mO1-mI1]
 fig, ax = plt.subplots()
 ax.hist((dc1,dm1),bins='auto',color=['red','blue'],label=['Blood Pool','Myocardium'])
 ax.legend(prop={'size': 20})
-plt.title('Histogram of LV Myocardial and Blood Pool Intensity', fontsize=20)
+plt.title('Histogram of LV Blood Pool and Myocardium Intensity', fontsize=20)
 plt.show()
 
 
