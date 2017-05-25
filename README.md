@@ -29,7 +29,7 @@ Part 2: Heuristic LV Segmentation approaches
 ### segmentation_thres(image, contourO, thres=1) (in utilities.py): 
 Test a simple thresholding scheme to segment the inner contour given the outer contour. The mean image intensity inside the outer contour is calculated first. Then based on the intensity, the blood pool should have higher value, while the myocardium should have lower value. The segmentation is then based on the mean value times some percentage threshold (default to be 1) to control the performance. A simple test is done on one image first, and visualize with comparision to manual segemented result (in read_single.py):
 
-![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/Outer_Contour.png)
+![alt text](https://github.com/eagle13gy/dicom_contour/blob/master/figures/thresholding_single.png)
 
 In this one data set, the performance is rather good. 
 
@@ -44,7 +44,8 @@ The simple thresholding method performs well for certain cases, but not so well 
 
 Also the total number of wrongly segmented points, and the percentage of these points w.r.t manual inner contours were calcualted to statistically evaluate the performance of this method. Below is some results for a range of threshold values:
 
-|Thres   Total   Percentage|
+|Thres   |Total   Percentage|
+| ------------- |:-------------:| -----:|
 |0.4:    30026   0.484595|
 |0.5:    20855   0.336582|
 |0.6:    17984   0.290247|
@@ -52,6 +53,13 @@ Also the total number of wrongly segmented points, and the percentage of these p
 |0.8:    20316   0.327883|
 |0.9:    28763   0.464211|
 |1.0:    46058   0.743338|
+
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 
 ### Questions:
